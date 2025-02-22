@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 TARGET_MAC = os.getenv("TARGET_MAC")
+IP_ADDRESS = os.getenv("IP_ADDRESS")
 
 
 app = FastAPI()
@@ -23,6 +24,6 @@ async def home():
 @app.post("/wake")
 async def wake():
     if TARGET_MAC:
-        send_magic_packet(TARGET_MAC)
+        send_magic_packet(TARGET_MAC, IP_ADDRESS)
         return {"status": "Magic Packet Sent"}
     return {"error": "TARGET_MAC not set"}
